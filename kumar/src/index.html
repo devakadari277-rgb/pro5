@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title>Simple Shop</title>
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="ctrl">
+
+<h2>🛒 Products</h2>
+
+<div ng-repeat="p in products">
+    {{p.name}} - ₹{{p.price}}
+    <button ng-click="add(p)">Add</button>
+</div>
+
+<h2>🛍 Cart</h2>
+
+<div ng-repeat="c in cart">
+    {{c.name}} - ₹{{c.price}}
+</div>
+
+<h3>Total: ₹{{total()}}</h3>
+
+<script>
+var app = angular.module("app", []);
+
+app.controller("ctrl", function($scope){
+
+    $scope.products = [
+        {name:"Laptop", price:50000},
+        {name:"Mobile", price:20000},
+        {name:"Shoes", price:3000}
+    ];
+
+    $scope.cart = [];
+
+    $scope.add = function(p){
+        $scope.cart.push(p);
+    };
+
+    $scope.total = function(){
+        var t = 0;
+        angular.forEach($scope.cart, function(i){
+            t += i.price;
+        });
+        return t;
+    };
+
+});
+</script>
+
+</body>
+</html>
